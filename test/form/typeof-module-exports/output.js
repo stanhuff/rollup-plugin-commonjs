@@ -10,7 +10,7 @@ if ( 'object' === 'object' && 'object' === 'object' ) {
 } else {
 	window.foo = foo;
 }
-});
+}, 'input.js');
 
 export default input;
 export { input as __moduleExports };

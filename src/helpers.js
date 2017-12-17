@@ -11,8 +11,8 @@ export function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
-export function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
+export function createCommonjsModule(fn, id, module) {
+	return module = { exports: {}, id: id}, fn(module, module.exports), module.exports;
 }`;
 
 export const PREFIX = '\0commonjs-proxy:';

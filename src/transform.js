@@ -358,7 +358,7 @@ export function transformCommonjs ( code, id, isEntry, ignoreGlobal, ignoreRequi
 		const args = `module${uses.exports ? ', exports' : ''}`;
 
 		wrapperStart = `var ${moduleName} = ${HELPERS_NAME}.createCommonjsModule(function (${args}) {\n`;
-		wrapperEnd = `\n});`;
+		wrapperEnd = `\n}, '${getModuleId(id).replace('\'', '\\\'')}');`;
 
 		Object.keys( namedExports )
 			.filter( key => !blacklist[ key ] )
@@ -432,4 +432,14 @@ export function transformCommonjs ( code, id, isEntry, ignoreGlobal, ignoreRequi
 	const map = sourceMap ? magicString.generateMap() : null;
 
 	return { code, map };
+}
+
+function getModuleId (id) {
+	if (typeof id === 'string') {
+		const nm = 'node_modules',
+			 idx = id.lastIndexOf(nm);
+		if (idx !== -1)
+			id = id.substring(idx + nm.length + 1);		
+	}
+	return id;
 }
